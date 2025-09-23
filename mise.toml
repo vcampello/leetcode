@@ -1,0 +1,4 @@
+[tasks.test]
+run = '''cargo test -- --no-capture'''
+sources = ["src/**/*.rs"]
+outputs = ['target']
