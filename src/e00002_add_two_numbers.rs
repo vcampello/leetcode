@@ -12,7 +12,7 @@ impl ListNode {
     }
 }
 
-struct Solution {}
+pub struct Solution {}
 
 impl Solution {
     pub fn add_two_numbers(
@@ -62,38 +62,39 @@ impl Solution {
             }
         }
 
-        // Build the linked list in reverse because it's too much of a pain
-        // to track the head and current nodes.
-        Solution::from_vec(&result)
+        Solution::from_vec(result)
     }
 
-    fn from_vec(list: &[i32]) -> Option<Box<ListNode>> {
+    fn from_vec(list: Vec<i32>) -> Option<Box<ListNode>> {
         let mut head: Option<Box<ListNode>> = None;
 
-        for val in list.iter().rev() {
+        // Build the linked list in reverse because it's too much
+        // of a pain to track the head and current nodes.
+        for &val in list.iter().rev() {
+            let mut new_head = Box::new(ListNode::new(val));
             head = match head {
                 // Change head
                 Some(_) => {
-                    let mut new_head = Box::new(ListNode::new(*val));
                     new_head.next = head;
                     Some(new_head)
                 }
-                None => Some(Box::new(ListNode::new(*val))),
+                None => Some(new_head),
             }
         }
 
         head
     }
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn case_1() {
-        let l1 = Solution::from_vec(&[2, 4, 3]);
-        let l2 = Solution::from_vec(&[5, 6, 4]);
-        let expected = Solution::from_vec(&[7, 0, 8]);
+        let l1 = Solution::from_vec(vec![2, 4, 3]);
+        let l2 = Solution::from_vec(vec![5, 6, 4]);
+        let expected = Solution::from_vec(vec![7, 0, 8]);
 
         let result = Solution::add_two_numbers(l1, l2);
         assert_eq!(result, expected);
@@ -101,9 +102,9 @@ mod tests {
 
     #[test]
     fn case_2() {
-        let l1 = Solution::from_vec(&[0]);
-        let l2 = Solution::from_vec(&[0]);
-        let expected = Solution::from_vec(&[0]);
+        let l1 = Solution::from_vec(vec![0]);
+        let l2 = Solution::from_vec(vec![0]);
+        let expected = Solution::from_vec(vec![0]);
 
         let result = Solution::add_two_numbers(l1, l2);
         assert_eq!(result, expected);
@@ -111,9 +112,9 @@ mod tests {
 
     #[test]
     fn case_3() {
-        let l1 = Solution::from_vec(&[9, 9, 9, 9, 9, 9, 9]);
-        let l2 = Solution::from_vec(&[9, 9, 9, 9]);
-        let expected = Solution::from_vec(&[8, 9, 9, 9, 0, 0, 0, 1]);
+        let l1 = Solution::from_vec(vec![9, 9, 9, 9, 9, 9, 9]);
+        let l2 = Solution::from_vec(vec![9, 9, 9, 9]);
+        let expected = Solution::from_vec(vec![8, 9, 9, 9, 0, 0, 0, 1]);
 
         let result = Solution::add_two_numbers(l1, l2);
         assert_eq!(result, expected);
