@@ -12,7 +12,8 @@ impl ListNode {
     }
 }
 
-pub struct Solution {}
+/// https://leetcode.com/problems/add-two-numbers/
+pub struct Solution;
 
 impl Solution {
     pub fn add_two_numbers(

@@ -1,4 +1,5 @@
-pub struct Solution {}
+/// https://leetcode.com/problems/integer-to-roman/
+pub struct Solution;
 
 impl Solution {
     const LOOKUP: [(i32, &'static str); 13] = [

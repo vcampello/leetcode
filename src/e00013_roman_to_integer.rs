@@ -1,4 +1,5 @@
-pub struct Solution {}
+/// https://leetcode.com/problems/roman-to-integer/
+pub struct Solution;
 
 impl Solution {
     fn to_int(s: &char) -> i32 {
