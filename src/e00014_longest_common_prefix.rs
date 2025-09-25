@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/longest-common-prefix/
+
 pub struct Solution;
 
 impl Solution {
@@ -5,18 +7,13 @@ impl Solution {
         let mut prefix: Vec<char> = Vec::new();
 
         // loop through the all chars of the first word
-        for (char_idx, c) in strs[0].chars().enumerate() {
-            let mut is_same = false;
-
-            for word in strs.iter() {
-                match word.chars().nth(char_idx) {
-                    Some(c_to_cmp) if c_to_cmp == c => is_same = true,
-                    _ => {
-                        is_same = false;
-                        break;
-                    }
-                }
-            }
+        for (char_idx, c) in strs.first().unwrap_or(&String::new()).chars().enumerate() {
+            let is_same = strs
+                .iter()
+                // all: test if every element matches the predicate
+                // matches!: condensed version of `match bool`
+                // - see: https://rust-lang.github.io/rust-clippy/master/index.html#match_like_matches_macro
+                .all(|word| matches!(word.chars().nth(char_idx), Some(other_c) if  other_c ==c));
 
             // store the prefix or stop processing
             match is_same {
