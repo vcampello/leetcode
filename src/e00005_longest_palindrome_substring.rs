@@ -17,6 +17,11 @@ impl Solution {
                 .join(SEP)
         );
 
+        let ss = s
+            .chars()
+            .fold(String::new(), |acc, cur| acc + "|" + &cur.to_string());
+        println!("{ss}");
+
         let chars = prime.chars().collect::<Vec<char>>();
 
         let mut center = 0;

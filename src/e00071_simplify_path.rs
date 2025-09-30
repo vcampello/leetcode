@@ -3,7 +3,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn simplify_path(path: String) -> String {
-        let out: Vec<_> = path
+        let path_components: Vec<_> = path
             // clean boundaries
             .split("/")
             // parse components
@@ -22,10 +22,7 @@ impl Solution {
             });
 
         // prefix path and join
-        match out.len() {
-            0 => "/".to_string(),
-            _ => out.iter().map(|comp| "/".to_string() + comp).collect(),
-        }
+        format!("/{}", path_components.join("/"))
     }
 }
 
