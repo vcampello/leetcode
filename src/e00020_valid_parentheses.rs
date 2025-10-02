@@ -16,25 +16,13 @@ impl Solution {
                 continue;
             };
 
-            // closing: get previous opening
-            let Some(&previous_open) = stack.last() else {
-                return false;
+            // closing: get the equivalent opening for the current closing character
+            match (stack.pop(), ch) {
+                (Some('('), ')') => (),
+                (Some('['), ']') => (),
+                (Some('{'), '}') => (),
+                _ => return false,
             };
-
-            // get the equivalent opening for the current closing character
-            let current_opening = match ch {
-                ')' => '(',
-                ']' => '[',
-                '}' => '{',
-                _ => '_',
-            };
-
-            if current_opening != previous_open {
-                return false;
-            }
-
-            // all good
-            stack.pop();
         }
 
         stack.is_empty()
