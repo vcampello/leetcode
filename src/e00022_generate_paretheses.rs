@@ -2,31 +2,31 @@
 pub struct Solution;
 
 impl Solution {
-    fn r(target: i32, opened: i32, closed: i32, s: &str, cache: &mut Vec<String>) {
-        if closed == target {
-            // println!("[{opened}, {closed}] solved\t= {s} ");
+    fn permute(to_open: i32, to_close: i32, s: &str, cache: &mut Vec<String>) {
+        // leaf node
+        if to_close == 0 {
+            // println!("[{to_open}, {to_close}] solved\t= {s} ");
             cache.push(s.to_string());
             return;
         }
 
-        if opened < target {
-            // println!("[{opened}, {closed}] open\t= {s} ");
-            Self::r(target, opened + 1, closed, &format!("{s}("), cache);
+        // explore opening
+        if to_open > 0 {
+            // println!("[{to_open}, {to_close}] open\t= {s} ");
+            Self::permute(to_open - 1, to_close, &format!("{s}("), cache);
         }
 
-        if closed < opened {
-            // println!("[{opened}, {closed}] close\t= {s} ");
-            Self::r(target, opened, closed + 1, &format!("{s})"), cache);
+        // explore closing
+        if to_close > to_open {
+            // println!("[{to_open}, {to_close}] close\t= {s} ");
+            Self::permute(to_open, to_close - 1, &format!("{s})"), cache);
         }
     }
 
     pub fn generate_parenthesis(n: i32) -> Vec<String> {
         let mut cache: Vec<String> = Vec::new();
-        if n < 1 {
-            return cache;
-        }
 
-        Solution::r(n, 0, 0, "", &mut cache);
+        Solution::permute(n, n, "", &mut cache);
 
         cache
     }
